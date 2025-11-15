@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 import os
+import const
 
 def read_categories(file_path):
     """
@@ -43,19 +44,14 @@ def read_exports(file_path):
     file_path = str(file_path)
     basename = os.path.splitext(os.path.basename(file_path))[0]
 
-    acct_map = {
-        'chase2528': 'Chase Southwest',
-        'chase1999': 'Chase Sapphire',
-        'marketrate': 'Joint Savings',
-        'account transactions': 'High Yield Savings',
-    }
+
 
     def normalize(s):
         return re.sub(r'[^a-z]', '', str(s).lower())
 
     def map_account(name):
         n = normalize(name)
-        for k, v in acct_map.items():
+        for k, v in const.acct_map.items():
             if normalize(k) in n:
                 return v
         return name
